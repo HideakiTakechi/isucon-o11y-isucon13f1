@@ -4,6 +4,7 @@
     - name: Import agent role
       ansible.builtin.import_role:
         name: agent
+      tags: deploy_agents
 
 - name: Deploy db config
   hosts: all
@@ -11,6 +12,7 @@
     - name: Import mysql role
       ansible.builtin.import_role:
         name: mysql
+      tags: deploy_db_config
 
 - name: Deploy nginx config
   hosts: all
@@ -18,3 +20,4 @@
     - name: Import nginx role
       ansible.builtin.import_role:
         name: nginx
+      tags: deploy_nginx_config
