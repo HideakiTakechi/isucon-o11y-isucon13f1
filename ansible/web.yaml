@@ -1,0 +1,15 @@
+- name: Build Go application locally
+  hosts: localhost
+  tasks:
+    - name: Import Build role
+      ansible.builtin.import_role:
+        name: webapp
+        tasks_from: build
+
+- name: Deploy to webapp
+  hosts: webapp
+  tasks:
+    - name: Import Deploy role
+      ansible.builtin.import_role:
+        name: webapp
+        tasks_from: deploy

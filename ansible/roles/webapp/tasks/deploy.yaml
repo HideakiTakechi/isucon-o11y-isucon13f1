@@ -1,0 +1,6 @@
+- name: Transfer binary to remote server
+  ansible.builtin.copy:
+    src: ../webapp/go/isupipe
+    dest: /home/isucon/webapp/go/isupipe
+    mode: '0755'
+  notify: restart_webapp
