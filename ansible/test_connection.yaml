@@ -1,5 +1,5 @@
-- name: Sample Playbook
-  hosts: webservers
+- name: Check connection for all EC2
+  hosts: all
   tasks:
     - name: Check connection
       ping:
