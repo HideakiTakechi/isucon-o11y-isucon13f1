@@ -1,0 +1,6 @@
+- name: Restart isupipe-go.service
+  become: true
+  ansible.builtin.systemd:
+    name: isupipe-go.service
+    state: restarted
+  listen: restart_webapp

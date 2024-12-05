@@ -1,0 +1,11 @@
+- name: Build Go application
+  ansible.builtin.command:
+    cmd: make
+    chdir: ../webapp/go
+  register: build_result
+  ignore_errors: no
+
+- name: Check if build was successful
+  ansible.builtin.fail:
+    msg: "Build failed. Check Go installation and code."
+  when: build_result.rc != 0
