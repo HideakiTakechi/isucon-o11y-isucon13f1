@@ -2,13 +2,17 @@
   hosts: webapp
   become: true
   tasks:
-    - name: Copy SQL directory to the target server
+    - name: Copy specific SQL files to the target server
       ansible.builtin.copy:
-        src: "../webapp/sql"
-        dest: "/home/isucon/webapp/sql"
+        src: "../webapp/sql/{{ item }}"
+        dest: "/home/isucon/webapp/sql/{{ item }}"
         owner: isucon
         group: isucon
         mode: "0755"
+      with_items:
+        - "initdb.d/00_create_database.sql"
+        - "initdb.d/10_schema.sql"
+        - "init.sh"
       notify: restart_mysql
 
   handlers:
