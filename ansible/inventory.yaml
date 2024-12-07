@@ -1,5 +1,23 @@
 all:
-  hosts:
-    web1:
-      ansible_host: 43.206.151.39
-      ansible_user: isucon
+  vars:
+    hosts_ips:
+      S1: 52.199.225.63 # ISUCON_TRY_SERVER1_IP
+      S2: ISUCON_TRY_SERVER2_IP
+      S3: ISUCON_TRY_SERVER3_IP
+    ansible_user: "isucon"
+
+  children:
+    target:
+      children:
+        nginx:
+          hosts:
+            nginx01:
+              ansible_host: "{{ hosts_ips.S1 }}"
+        webapp:
+          hosts:
+            webapp01:
+              ansible_host: "{{ hosts_ips.S1 }}"
+        db:
+          hosts:
+            db01:
+              ansible_host: "{{ hosts_ips.S1 }}"

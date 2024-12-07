@@ -1,0 +1,22 @@
+- name: Deploy MySQL related sources
+  hosts: webapp
+  become: true
+  tasks:
+    - name: Copy specific SQL files to the target server
+      ansible.builtin.copy:
+        src: "../webapp/sql/{{ item }}"
+        dest: "/home/isucon/webapp/sql/{{ item }}"
+        owner: isucon
+        group: isucon
+        mode: "0755"
+      with_items:
+        - "initdb.d/00_create_database.sql"
+        - "initdb.d/10_schema.sql"
+        - "init.sh"
+      notify: restart_mysql
+
+  handlers:
+    - name: restart_mysql
+      ansible.builtin.service:
+        name: mysql
+        state: restarted
